@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../style/output.css">
+    <title>Regular expressions</title>
+</head>
+    <body class="bg-pink-600 min-h-screen py-20 px-10">
+        <div class="w-full h-full max-w-screen mx-0">
+            <div class="flex justify-center">
+                <div class="flex-col">
+                    <p class="text-white font-bold text-2xl text-center">Regular Expressions</p>
+                </div>
+            </div>
+        </div>
+        <div class="flex flex-wrap mt-10 px-5 gap-5">
+            <div class="w-[23rem]">
+                <label for="nim" class="font-semibold text-white block leading-6">NIM</label>
+                <div class="mt-2">
+                    <input type="text" id="inputNIM" name="nim" required class="block w-full rounded shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-500 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 p-2 py-1.5" placeholder="Masukkan NIM mu">
+                    <p id="validasiNIM" class="mt-1"></p>
+                </div>
+            </div>
+            <div class="w-[23rem]">
+                <label for="nim" class="font-semibold text-white block leading-6">NAMA maksimal 3 kata</label>
+                <div class="mt-2">
+                    <input type="text" id="inputNama" name="nama" required class="block w-full rounded shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-500 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 p-2 py-1.5" placeholder="Masukkan Nama mu">
+                    <p id="validasiNama" class="mt-1"></p>
+                </div>
+            </div>
+            <div class="w-[23rem]">
+                <label for="email" class="font-semibold text-white block leading-6">Email</label>
+                <div class="mt-2">
+                    <input type="text" id="inputEmail" name="email" required class="block w-full rounded shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-500 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 p-2 py-1.5" placeholder="Masukkan Email mu">
+                    <p id="validasiEmail" class="mt-1"></p>
+                </div>
+            </div>
+            <div class="w-[23rem]">
+                <label for="huruf" class="font-semibold text-white block leading-6">Huruf</label>
+                <div class="mt-2">
+                    <input type="text" id="inputHuruf" name="huruf" required class="block w-full rounded shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-500 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 p-2 py-1.5" placeholder="Masukkan huruf">
+                    <p id="validasiHuruf" class="mt-1"></p>
+                </div>
+            </div>
+            <div class="w-[23rem]">
+                <label for="angka" class="font-semibold text-white block leading-6">Angka</label>
+                <div class="mt-2">
+                    <input type="text" id="inputAngka" name="angka" required class="block w-full rounded shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-500 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 p-2 py-1.5" placeholder="Masukkan angka">
+                    <p id="validasiAngka" class="mt-1"></p>
+                </div>
+            </div>
+        </div>
+        
+    
+        <script>
+            let regexInputNIM = document.getElementById("inputNIM");
+            let nimValidasi = document.getElementById("validasiNIM");
+            let regexInputNama = document.getElementById("inputNama");
+            let namaValidasi = document.getElementById("validasiNama");
+            let regexInputEmail = document.getElementById("inputEmail");
+            let emailValidasi = document.getElementById("validasiEmail");
+            let regexInputHuruf = document.getElementById("inputHuruf");
+            let hurufValidasi = document.getElementById("validasiHuruf");
+            let regexInputAngka = document.getElementById("inputAngka");
+            let angkaValidasi = document.getElementById("validasiAngka");
+    
+    
+            const REGEX_NIM = new RegExp("^[0-9]{9}$");
+            const REGEX_NAMA = new RegExp("^[a-zA-Z]+(?:\\s[a-zA-Z]+){0,2}$");
+            const REGEX_EMAIL = new RegExp ("^[^\s@]+@[^\s@]+\.[^\s@]+$");
+            const REGEX_HURUF = new RegExp ("^[a-zA-Z]+$");
+            const REGEX_ANGKA = new RegExp("^\\d+$");
+
+            regexInputNIM.addEventListener("input", () => {
+                handleInput(regexInputNIM, nimValidasi, REGEX_NIM);
+            });
+            regexInputNama.addEventListener("input", () => {
+                handleInput(regexInputNama, namaValidasi, REGEX_NAMA);
+            });
+            regexInputEmail.addEventListener("input", () => {
+                handleInput(regexInputEmail, emailValidasi, REGEX_EMAIL);
+            });
+            regexInputHuruf.addEventListener("input", () => {
+                handleInput(regexInputHuruf, hurufValidasi, REGEX_HURUF);
+            });
+            regexInputAngka.addEventListener("input", () => {
+                handleInput(regexInputAngka, angkaValidasi, REGEX_ANGKA);
+            });
+    
+           
+    
+            function handleInput(inputElement, validationElement, regex) {
+            if(inputElement.value === ""){
+                validationElement.classList.remove("text-white");
+                validationElement.classList.remove("text-black");
+                inputElement.classList.add("focus:ring-indigo-600");
+                inputElement.classList.remove("focus:ring-red-500");
+                inputElement.classList.remove("focus:ring-green-500");
+                inputElement.classList.add("ring-grey-300");
+                inputElement.classList.remove("ring-red-500");
+                inputElement.classList.remove("ring-green-500");
+                validationElement.innerHTML = "";
+            }else if(regex.test(inputElement.value)){
+                validationElement.classList.add("text-white");
+                validationElement.classList.remove("text-black");
+                inputElement.classList.remove("focus:ring-indigo-600");
+                inputElement.classList.remove("focus:ring-red-500");
+                inputElement.classList.add("focus:ring-green-500");
+                inputElement.classList.remove("ring-grey-300");
+                inputElement.classList.remove("ring-red-500");
+                inputElement.classList.add("ring-green-500");
+                validationElement.innerHTML = "Valid";
+            }else{
+                validationElement.classList.add("text-black");
+                validationElement.classList.remove("text-white");
+                inputElement.classList.remove("focus:ring-indigo-600");
+                inputElement.classList.remove("focus:ring-green-500");
+                inputElement.classList.add("focus:ring-red-500");
+                inputElement.classList.remove("ring-grey-300");
+                inputElement.classList.remove("ring-green-500");
+                inputElement.classList.add("ring-red-500");
+                validationElement.innerHTML = "Invalid";
+            }
+        }
+</script>
+</body>
+</html>
